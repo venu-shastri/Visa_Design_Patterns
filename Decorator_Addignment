@@ -1,0 +1,24 @@
+class BlackTea{
+
+  public void Print(){}
+
+}
+
+class BlackCoffee{
+
+public void Print(){}
+
+}
+
+class Ginger{
+
+}
+
+class Lemon{
+
+}
+
+
+
+IBrevarge _ref=new Lemon(new Ginger(new BlackTea()));
+_ref.Print();
