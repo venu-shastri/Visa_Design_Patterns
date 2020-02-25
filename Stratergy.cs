@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stratergy_Csharp
 {
-    public class CustomerDataModel { public string ID { get; set; } }
+    public class CustomerDataModel { public string ID { get; set; }  public string Name{get;set;}}
 
     public interface ISearchFillter
     {
@@ -22,6 +22,7 @@ namespace Stratergy_Csharp
 
         }
 
+        //public List<CustomerDataModel> GetCustomers(List<ISearchFillter> filter)
         public List<CustomerDataModel> GetCustomers(ISearchFillter filter)
         {
             if (filter == null)
@@ -44,6 +45,18 @@ namespace Stratergy_Csharp
 
     }
 
+    public class CompositeStratergy:ISearchFilter{
+       List<ISearchFilter> _filters=new List<ISerachFilter>();
+        public bool Filter(CustomerDataModel model)
+        {
+                foreach(){
+                    
+                }
+        }
+        public void AddFilterStratergy(ISearchFilter filter){
+         this._filters.Add(filter);   
+        }
+    }
     public class IDSearchStrategry : ISearchFillter
     {
         string id;
@@ -58,9 +71,13 @@ namespace Stratergy_Csharp
     }
     public class NameSearchStratergy : ISearchFillter
     {
+        string _name;
+        public NameSearchStratergy(string name){
+                this._name=name;
+        }
         public bool Filter(CustomerDataModel model)
         {
-            throw new NotImplementedException();
+            //
         }
     }
     class Program
@@ -70,6 +87,14 @@ namespace Stratergy_Csharp
             CustomerService _service = new CustomerService();
             _service.GetCustomers(new IDSearchStrategry("C1000"));
             _service.GetCustomers(new NameSearchStratergy("Tom"));
+            var compositeStratergy=new CompositeStratergy();
+            compositeStratergy.Add(new  IDSearchStrategry("C1000"));
+            compositeStratergy.Add(new  NameSearchStrategry("C1000"));
+            _service.GetCustomers(compositeStratergy);
+            
+            
+            
+            
         }
     }
 }
