@@ -1,1 +1,36 @@
 
+public class WordDocument{
+
+List<IDocumentPart> _parts=new List<IDocumentPart>();
+public void AddPart(IDocumentPart part){
+  this._parts.Add(part);
+}
+
+public void Open(){
+  
+      foreach(var part in _parts){
+          part.Paint();
+        }
+        
+}
+
+public void Save(){
+      foreach(var part in _parts){
+          part.Save();
+        }
+  
+}
+
+}
+
+public interface IDocumentPart{
+
+  void Paint();
+  void Save();
+
+}
+
+public class HeaderPart :IDocumentPart{}
+public class FooterPart :IDocumentPart{}
+public class ParagraphPart :IDocumentPart{}
+public class HyperLinkPart :IDocumentPart{}
