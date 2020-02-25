@@ -1,0 +1,73 @@
+ public interface IA
+    {
+        void Operation();
+    }
+
+    public abstract class DecoratorBase : IA
+    {
+
+        IA _targetObject;
+        public DecoratorBase(IA targetObject)
+        {
+            this._targetObject = targetObject;
+        }
+        public virtual void Operation()
+        {
+            this._targetObject.Operation();
+        }
+
+    }
+    public class Decorator : DecoratorBase
+    {
+        
+        public Decorator(IA targetObject):base(targetObject)
+        {
+            
+        }
+        //Enhancement
+        public override void Operation()
+        {
+            
+            Console.WriteLine("Enhancing an instnce Operation");
+            base.Operation();
+        }
+    }
+
+    public class NewDecorator : DecoratorBase
+    {
+        
+        public NewDecorator(IA targetObject):base(targetObject)
+        {
+            
+        }
+        public override void Operation()
+        {
+            base.Operation();
+            
+        }
+    }
+    public class A:IA { 
+    
+        public void Operation()
+        {
+            Console.WriteLine("A.Operation");
+        }
+    }
+
+    public class Program_New
+    {
+        static void Main()
+        {
+            IA obj1 = new A();
+            IA obj2 = new A();
+            IA  obj3 = new A();
+
+            obj2 = new Decorator(obj2);
+            obj2.Operation();
+
+            obj1.Operation();
+            obj2.Operation();
+            obj3.Operation();
+        }
+    }
+         
