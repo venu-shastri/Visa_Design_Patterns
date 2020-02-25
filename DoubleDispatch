@@ -1,0 +1,28 @@
+A obj=new B();
+C c_obj=new D();
+
+obj.Foo(c_obj);//Foo->B
+
+class A{ public virtual void Foo(C arg){
+		arg.Fun(this);//Polymorpic Static Binding
+}}
+
+class B:A{public override void Foo(C arg){
+		arg.Fun(this);
+}}
+
+class C{
+	public virtual void Fun(A obj){obj.Foo();}
+	public virtual void Fun(B obj){obj.Foo();}
+}
+class D:C{
+
+	public override void Fun(A obj){obj.Foo();}
+	public override void Fun(B obj){obj.Foo();}
+
+}
+
+
+
+
+
