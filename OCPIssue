@@ -1,36 +1,175 @@
+ public interface IConverter
+    {
+        void Convert(HyperLinkPart document);
+        void Convert(ParagraphPart document);
+        void Convert(HeaderPart document);
+        void Convert(FooterPart document);
 
-public class WordDocument{
+    }
 
-List<IDocumentPart> _parts=new List<IDocumentPart>();
-public void AddPart(IDocumentPart part){
-  this._parts.Add(part);
-}
-
-public void Open(){
-  
-      foreach(var part in _parts){
-          part.Paint();
-        }
+    public class HtmlConverter : IConverter
+    {
         
-}
 
-public void Save(){
-      foreach(var part in _parts){
-          part.Save();
+        public void Convert(HyperLinkPart document)
+        {
+            Console.WriteLine("HyperLink Part HTML Conversion");
         }
-  
-}
 
-}
+        public void Convert(ParagraphPart document)
+        {
+            Console.WriteLine("HyperLink Part HTML Conversion");
+        }
 
-public interface IDocumentPart{
+        public void Convert(HeaderPart document)
+        {
+            Console.WriteLine("HyperLink Part HTML Conversion");
+        }
 
-  void Paint();
-  void Save();
+        public void Convert(FooterPart document)
+        {
+            Console.WriteLine("HyperLink Part HTML Conversion");
+        }
+    }
 
-}
+    public class PdfConverter : IConverter
+    {
+        public void Convert(HyperLinkPart document)
+        {
+            throw new NotImplementedException();
+        }
 
-public class HeaderPart :IDocumentPart{}
-public class FooterPart :IDocumentPart{}
-public class ParagraphPart :IDocumentPart{}
-public class HyperLinkPart :IDocumentPart{}
+        public void Convert(ParagraphPart document)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Convert(HeaderPart document)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Convert(FooterPart document)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class WordDocument
+    {
+
+        List<IDocumentPart> _parts = new List<IDocumentPart>();
+
+        public List<IDocumentPart> Parts { get => _parts; }
+
+        public void AddPart(IDocumentPart part)
+        {
+            this.Parts.Add(part);
+        }
+
+        public void Open()
+        {
+
+            foreach (var part in Parts)
+            {
+                part.Paint();
+            }
+
+        }
+
+        public void Save()
+        {
+            foreach (var part in Parts)
+            {
+                part.Save();
+            }
+
+        }
+        public void Convert(IConverter converter)
+        {
+            foreach(var part in _parts)
+            {
+                part.Convert(converter);
+            }
+
+        }
+
+    }
+
+    public interface IDocumentPart
+    {
+
+        void Paint();
+        void Save();
+
+        void Convert(IConverter converter);
+
+    }
+
+    public class HeaderPart : IDocumentPart
+    {
+        public void Convert(IConverter converter)
+        {
+            converter.Convert(this);
+        }
+
+        public void Paint()
+        {
+            Console.WriteLine("HeaderPart Painted");
+        }
+
+        public void Save()
+        {
+            Console.WriteLine("HeaderPart Saved");
+        }
+    }
+    public class FooterPart : IDocumentPart
+    {
+        public void Convert(IConverter converter)
+        {
+            converter.Convert(this);
+        }
+
+        public void Paint()
+        {
+            Console.WriteLine("FooterPart Painted");
+        }
+
+        public void Save()
+        {
+            Console.WriteLine("FooterPart Saved");
+        }
+    }
+    public class ParagraphPart : IDocumentPart
+    {
+        public void Convert(IConverter converter)
+        {
+            converter.Convert(this);
+        }
+
+        public void Paint()
+        {
+            Console.WriteLine("ParagraphPart Painted");
+        }
+
+        public void Save()
+        {
+            Console.WriteLine("ParagraphPart Saved");
+        }
+    }
+    public class HyperLinkPart : IDocumentPart
+    {
+        public void Convert(IConverter converter)
+        {
+            converter.Convert(this);
+        }
+
+        public void Paint()
+        {
+            Console.WriteLine("HyperLinkPart Painted");
+        }
+
+        public void Save()
+        {
+            Console.WriteLine("HyperLinkPart Saved");
+        }
+    }
