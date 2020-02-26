@@ -1,0 +1,41 @@
+ public class CareTaker
+    {
+        Originator _originator = new Originator();
+        public void TakeSnapshot()
+        {
+
+            _originator.CreateMemento();
+        }
+        public void Reset()
+        {
+            _originator.RestoreMemento();
+        }
+        public void ChangeState(string msg)
+        {
+            _originator.ChangeState(msg);
+        }
+    }
+
+    public class Originator
+    {
+        string state;
+        Memento _memnto = new Memento();
+        public void ChangeState(string value)
+        {
+            this.state = value;
+        }
+        public void CreateMemento()
+        {
+            _memnto.SetState(this.state);
+        }
+        public void RestoreMemento()
+        {
+            this.state = _memnto.GetState();
+        }
+    }
+    public class Memento
+    {
+        string state;
+        public void SetState(string value) { this.state = value; }
+        public string GetState() { return this.state; }
+    }
