@@ -1,0 +1,17 @@
+
+class A{
+		int state;
+		private A(){}
+		public static readonly Lazy<A> Instance;
+		static A(){
+			Instance=new Lazy<A>();
+		}
+		public static Test(){}
+}
+
+
+class A{
+	static int state;
+	public int GetState(){}
+	public void SetState(int value){}	
+}
