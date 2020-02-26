@@ -1,24 +1,50 @@
-class BlackTea{
+interface IB{
+
+void Print();
+}
+class BlackTea:IB{
 
   public void Print(){}
 
 }
 
-class BlackCoffee{
+class BlackCoffee:IB{
 
 public void Print(){}
 
 }
 
-class Ginger{
+abstract class BD :IB{
 
+  IB targetObj;
+  public BD(IB targetObj){ this.targetObj=targetObj;}
+  
+  public virtual void Print(){
+    this.targetObj.Print();
+  }
+  
+}
+class Ginger:BD{
+  public Ginger(IB targetObj):base(targetObj){}
+  public override void Print(){
+    //
+    base.Print();
+  }
+  
+  
 }
 
-class Lemon{
-
+class Lemon : BD{
+public Lemon(IB targetObj):base(targetObj){}
+  public override void Print(){
+    //
+    base.Print();
+  }
 }
 
 
 
-IBrevarge _ref=new Lemon(new Ginger(new BlackTea()));
+IB _ref=new Lemon(new Ginger(new BlackhTea()));
+
+IB obj=new BvDecorator(new BlackTea).addGinger().addLemon().addMilk().getBv();
 _ref.Print();
