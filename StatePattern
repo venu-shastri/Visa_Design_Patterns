@@ -1,0 +1,45 @@
+public interface IStateHandler
+    {
+        void Handle(Context _context);
+
+    }
+    public class StateOneHandler : IStateHandler
+    {
+        public void Handle(Context _context)
+        {
+            Console.WriteLine("State1");
+            _context.SetStateHandler(new StateTwoHandler());
+        }
+    }
+    public class StateTwoHandler : IStateHandler
+    {
+        public void Handle(Context _context)
+        {
+            Console.WriteLine("State2");
+            _context.SetStateHandler(new StateThreeHandler());
+        }
+    }
+    public class StateThreeHandler : IStateHandler
+    {
+        public void Handle(Context _context)
+        {
+            Console.WriteLine("State3");
+            _context.SetStateHandler(new StateThreeHandler());
+        }
+    }
+    public  class Context
+    {
+        IStateHandler _currentStateHandler;
+        public Context(IStateHandler currentStateHandler)
+        {
+            this._currentStateHandler = currentStateHandler;
+        }
+        public void SetStateHandler(IStateHandler handler)
+        {
+            this._currentStateHandler = handler;
+        }
+        public void Operation()
+        {
+            this._currentStateHandler.Handle(this);
+        }
+    }
