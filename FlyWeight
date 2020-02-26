@@ -1,0 +1,23 @@
+public  class FlyWeight
+    {
+        string sharedState;
+        public void Operation(string non_sharedState)
+        {
+
+        }
+    }
+
+    public class FlyWieghtFactory
+    {
+        Dictionary<string, FlyWeight> _flyweightStore = new Dictionary<string, FlyWeight>();
+        public FlyWeight GetFlyWeight(string key)
+        {
+            if (_flyweightStore.ContainsKey(key))
+            {
+                return _flyweightStore[key];
+            }
+            FlyWeight _obj = new FlyWeight();
+            _flyweightStore.Add(key, _obj);
+            return _obj;
+        }
+    }
